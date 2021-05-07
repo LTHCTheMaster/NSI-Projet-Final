@@ -9,6 +9,7 @@ current_title = BASE_TITLE
 current_path = ''
 
 pilImage = None
+drawedPilImage = None
 
 def update_path(new_path): #mettre a jour le chemin du fichier actuel
     global current_path
@@ -17,12 +18,30 @@ def update_path(new_path): #mettre a jour le chemin du fichier actuel
 def drawImageOnCanvasFromOpen(): #permet d'afficher l'image
     global pilImage
     pilImage = pimg.open(current_path)
+    global drawedPilImage
+    drawedPilImage = pilImage
+    wd, hg = pilImage.size
     basewidth = 960
-    wpercent = (basewidth / float(pilImage.size[0]))
-    hsize = int((float(pilImage.size[1]) * float(wpercent)))
-    pilImage = pilImage.resize((basewidth, hsize), pimg.ANTIALIAS)
-    image = ImageTk.PhotoImage(pilImage)
-    imagesprite = canvas.create_image(basewidth // 2 + 1, hsize // 2 + 1, image=image)
+    baseheight = 530
+    if not (wd <= basewidth and hg <= baseheight):
+        #Generate the wd ratio
+        ratio = basewidth / wd
+        hsize = int(hg * ratio)
+        #check hg from wd ratio
+        if hsize <= baseheight:
+            drawedPilImage = drawedPilImage.resize((basewidth, hsize), pimg.ANTIALIAS)
+        else:
+            #Generate the hg ratio
+            ratio = baseheight / hg
+            wsize = int(wd * ratio)
+            #check wd from hg ratio
+            if wsize <= basewidth:
+                drawedPilImage = drawedPilImage.resize((wsize, baseheight), pimg.ANTIALIAS)
+            else:
+                drawedPilImage = drawedPilImage.resize((basewidth, baseheight), pimg.ANTIALIAS)
+    
+    image = ImageTk.PhotoImage(drawedPilImage)
+    imagesprite = canvas.create_image(basewidth // 2 + 1, baseheight // 2 + 1, image=image)
     imagesprite.pack()
 
 def openFile(): #permet d'ouvrir une image
