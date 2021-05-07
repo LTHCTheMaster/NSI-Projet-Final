@@ -2,6 +2,7 @@
 
 from tkinter import *
 from tkinter.filedialog import askopenfilename
+from PIL import ImageTk, Image as pimg
 
 BASE_TITLE = 'Image Lab'
 current_title = BASE_TITLE
@@ -32,5 +33,8 @@ file_bar.add_command(label='Exit', command=window.destroy)
 menu_bar.add_cascade(label='File', menu=file_bar)
 
 window.config(menu=menu_bar)
+
+canvas = Canvas(window,width=960,height=530, bg='#FFDD00')
+canvas.pack()
 
 window.mainloop()
