@@ -14,19 +14,15 @@ def update_path(new_path):
     current_path = new_path
 
 def openFile():
-    pathi = path.abspath(askopenfilename(filetypes=[('Image File', '*.jpg')]))
-    update_path(pathi)
+    path = path.abspath(askopenfilename(filetypes=[('Image File', '*.jpg')]))
+    update_path(path)
     global current_title
     current_title = BASE_TITLE + ' > ' + current_path
     window.title(current_title)
     pilImage = pimg.open(current_path)
-    basewidth = 960
-    wpercent = (basewidth / float(pilImage.size[0]))
-    hsize = int((float(pilImage.size[1]) * float(wpercent)))
-    pilImage = pilImage.resize((basewidth, hsize), pimg.ANTIALIAS)
     image = ImageTk.PhotoImage(pilImage)
-    imagesprite = canvas.create_image(basewidth // 2 + 1, hsize // 2 + 1, image=image)
-    imagesprite.pack()
+    global canvas
+    imagesprite = canvas.create_image(25,25,image=image)
 
 
 window = Tk()
@@ -44,7 +40,7 @@ menu_bar.add_cascade(label='File', menu=file_bar)
 
 window.config(menu=menu_bar)
 
-canvas = Canvas(window,width=960,height=530)
+canvas = Canvas(window,width=960,height=530, bg='#FFDD00')
 canvas.pack()
 
 window.mainloop()
