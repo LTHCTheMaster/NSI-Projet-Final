@@ -36,6 +36,12 @@ def openFile():
 def saveAsFile():
     pathi = asksaveasfilename(filetypes=[('Image File', '*.jpg')])
     pilImage.save(pathi)
+    
+def saveFile():
+    if current_path == '':
+        saveAsFile()
+    else:
+        pilImage.save(current_path)
 
 window = Tk()
 window.iconphoto(False, PhotoImage(file='res/icon.png'))
@@ -46,6 +52,7 @@ menu_bar = Menu(window)
 
 file_bar = Menu(menu_bar, tearoff=0)
 file_bar.add_command(label='Open', command=openFile)
+file_bar.add_command(label='Save', command=saveFile)
 file_bar.add_command(label='Save as', command=saveAsFile)
 file_bar.add_command(label='Exit', command=window.destroy)
 
