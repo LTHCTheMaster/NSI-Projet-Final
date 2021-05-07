@@ -12,9 +12,8 @@ class GraphCore:
         """return the distance between two tridimensional vectors (currently the two colors we want to compare)"""
         return sqrt( (pointb[0] - pointa[0])**2 + (pointb[1] - pointa[1])**2 + (pointb[2] - pointa[2])**2 )
 
-    def mdcl(self, image_path, color_list):
+    def mdcl(self, img, color_list):
         """Return the color matrix of the image with only specified colors in color_list"""
-        img = pimg.open(image_path)
         wd, hg = img.size
         out = []
         for i in range(hg):
@@ -36,9 +35,8 @@ class GraphCore:
                 out = c
         return out
 
-    def gmdcl(self, image_path):
+    def gmdcl(self, img):
         """return the grey scale image"""
-        img = pimg.open(image_path)
         wd, hg = img.size
         out = []
         for i in range(hg):
@@ -51,9 +49,9 @@ class GraphCore:
         img.close()
         return out
 
-    def nmdcl(self, image_path):
+    def nmdcl(self, img):
         """Return the negative image"""
-        img = pimg.open(image_path)
+         
         wd, hg = img.size
         out = []
         for i in range(hg):
@@ -68,7 +66,7 @@ class GraphCore:
         img.close()
         return out
 
-    def cimdcl(self, image_path, mode='r'):
+    def cimdcl(self, img, mode='r'):
         """
         -> default mode: r (R) => ignore red so R in RGB = 0
         -> g (G) => ignore green so G in RGB = 0
@@ -78,7 +76,6 @@ class GraphCore:
         -> m (M) => keep blue so R & G in RGB = 0
         -> => Warning : You cannot use uppercase letters for mode
         """
-        img = pimg.open(image_path)
         wd, hg = img.size
         out = []
         for i in range(hg):
@@ -103,14 +100,13 @@ class GraphCore:
         img.close()
         return out
 
-    def mmdcl(self, image_path, mode='rg'):
+    def mmdcl(self, img, mode='rg'):
         """
         -> default mode: rg (RG) => R & G in RGB equals the average of R & G
         -> rb (RB) => R & B in RGB equals the average of R & B
         -> gb (GB) => G & B in RGB equals the average of G & B
         -> => Warning : You cannot use uppercase letters for mode
         """
-        img = pimg.open(image_path)
         wd, hg = img.size
         out = []
 
@@ -133,7 +129,7 @@ class GraphCore:
         img.close()
         return out
 
-    def rsz(self, image_path, out_image_path, mode='w', width=256, height=256, scale=0.5):
+    def rsz(self, img ,mode='w', width=256, height=256, scale=0.5):
         """
         Save a rescaled image
         Mode => -> w (W) => rescale by a new width
@@ -142,8 +138,6 @@ class GraphCore:
         -> s (S) => rescale by a ratio
         -> => Warning : You cannot use uppercase letters for mode
         """
-        img = pimg.open(image_path)
-
         wd, hg = img.size
 
         if mode == 'w':
@@ -163,18 +157,15 @@ class GraphCore:
         elif mode not in ['w', 'h', 'wh', 's']:
             return
 
-        img.save(out_image_path,'JPEG')
-        img.close()
+        return img
 
-    def smz(self, image_path, out_image_path, mode='h'):
+    def smz(self, img ,mode='h'):
         """
         Save a symetrized image created with the original image
         Mode => -> h (H) => do the horizontal symetry
         -> v (V) => do the vertical symetry
         -> => Warning : You cannot use uppercase letters for mode
         """
-        img = pimg.open(image_path)
-
         wd, hg = img.size
 
         imgout = pimg.new('RGB', (wd, hg))
@@ -191,14 +182,11 @@ class GraphCore:
                     y = hg - j - 1
                     r, g, b = img.getpixel((i, j))
                     imgout.putpixel((i, y), (r, g, b))
-        elif mode not in 'hv':
-            return
 
         img.close()
-        imgout.save(out_image_path,'JPEG')
-        imgout.close()
+        return imgout
     
-    def trim(self, image_path, out_image_path, value=16, mode='t'):
+    def trim(self, img ,value=16, mode='t'):
         """
         Trim an image by removing value pixels on the mode part of image
         => mode -> t (T) = Top
@@ -207,7 +195,7 @@ class GraphCore:
         -> r (R) = Right
         -> => Warning : You cannot use uppercase letters for mode
         """
-        img = pimg.open(image_path)
+        imgout = None
 
         wd, hg = img.size
 
@@ -221,8 +209,6 @@ class GraphCore:
                         imgout.putpixel((i,j-value), (colr, colg, colb))
                 
                 img.close()
-                imgout.save(out_image_path,'JPEG')
-                imgout.close()
         elif mode == 'b':
             if value < hg - 1:
                 imgout = pimg('RGB', (wd, hg - value))
@@ -233,8 +219,6 @@ class GraphCore:
                         imgout.putpixel((i,j), (colr, colg, colb))
                 
                 img.close()
-                imgout.save(out_image_path,'JPEG')
-                imgout.close()
         elif mode == 'l':
             if value < wd - 1:
                 imgout = pimg('RGB', (wd - value, hg))
@@ -245,8 +229,6 @@ class GraphCore:
                         imgout.putpixel((i-value,j), (colr, colg, colb))
                 
                 img.close()
-                imgout.save(out_image_path,'JPEG')
-                imgout.close()
         elif mode == 'r':
             if value < wd - 1:
                 imgout = pimg('RGB', (wd - value, hg))
@@ -257,18 +239,15 @@ class GraphCore:
                         imgout.putpixel((i,j), (colr, colg, colb))
                 
                 img.close()
-                imgout.save(out_image_path,'JPEG')
-                imgout.close()
-        elif mode not in 'tblr':
-            img.save(out_image_path)
-            img.close()
+        if imgout != None:
+            return imgout
 
 #TransformSys
 class TransformSys:
     def __init__(self):
         self.gphc = GraphCore()
 
-    def transformImg_nms(self, image_path, out_image_path, mode='p', color_list=[(255,255,255),(0,0,0)]):
+    def transformImg_nms(self, img ,mode='p', color_list=[(255,255,255),(0,0,0)]):
         """
         Transform an image to an other image with a specified mode
         => Mode list: -> p (P) => use a limited color system to transform the image
@@ -286,29 +265,29 @@ class TransformSys:
         -> => Warning : You cannot use uppercase letters for mode
         """
         if mode == 'p':
-            colors = self.gphc.mdcl(image_path, color_list)
+            colors = self.gphc.mdcl(img, color_list)
         elif mode == 'g':
-            colors = self.gphc.gmdcl(image_path)
+            colors = self.gphc.gmdcl(img)
         elif mode == 'n':
-            colors = self.gphc.nmdcl(image_path)
+            colors = self.gphc.nmdcl(img)
         elif mode == 'ci_r':
-            colors = self.gphc.cimdcl(image_path, 'r')
+            colors = self.gphc.cimdcl(img, 'r')
         elif mode == 'ci_g':
-            colors = self.gphc.cimdcl(image_path, 'g')
+            colors = self.gphc.cimdcl(img, 'g')
         elif mode == 'ci_b':
-            colors = self.gphc.cimdcl(image_path, 'b')
+            colors = self.gphc.cimdcl(img, 'b')
         elif mode == 'k_r':
-            colors = self.gphc.cimdcl(image_path, 'k')
+            colors = self.gphc.cimdcl(img, 'k')
         elif mode == 'k_g':
-            colors = self.gphc.cimdcl(image_path, 'l')
+            colors = self.gphc.cimdcl(img, 'l')
         elif mode == 'k_b':
-            colors = self.gphc.cimdcl(image_path, 'm')
+            colors = self.gphc.cimdcl(img, 'm')
         elif mode == 'm_rg':
-            colors = self.gphc.mmdcl(image_path, 'rg')
+            colors = self.gphc.mmdcl(img, 'rg')
         elif mode == 'm_rb':
-            colors = self.gphc.mmdcl(image_path, 'rb')
+            colors = self.gphc.mmdcl(img, 'rb')
         elif mode == 'm_gb':
-            colors = self.gphc.mmdcl(image_path, 'gb')
+            colors = self.gphc.mmdcl(img, 'gb')
         elif mode not in ['p', 'g', 'n', 'ci_r', 'ci_g', 'ci_b', 'k_r', 'k_g', 'k_b', 'm_rg', 'm_rb', 'm_gb']:
             return
 
@@ -316,10 +295,9 @@ class TransformSys:
         for i in range(len(colors[0])):
             for j in range(len(colors)):
                 outimg.putpixel((i,j),colors[j][i])
-        outimg.save(out_image_path,'JPEG')
-        outimg.close()
+        return outimg
 
-    def transformImg_ms(self, image_path, out_image_path, mode='r_w', width=256, height=256, scale=0.5, value=16):
+    def transformImg_ms(self, img ,mode='r_w', width=256, height=256, scale=0.5, value=16):
         """
         Transform an image to an other image with a specified mode
         => Mode list: -> r_w (R_W) => resize by width
@@ -335,31 +313,31 @@ class TransformSys:
         -> => Warning : You cannot use uppercase letters for mode
         """
         if mode == 'r_w':
-            self.gphc.rsz(image_path, out_image_path, 'w', width, height, scale)
+            return self.gphc.rsz(img ,'w', width, height, scale)
         elif mode == 'r_h':
-            self.gphc.rsz(image_path, out_image_path, 'h', width, height, scale)
+            return self.gphc.rsz(img ,'h', width, height, scale)
         elif mode == 'r_wh':
-            self.gphc.rsz(image_path, out_image_path, 'wh', width, height, scale)
+            return self.gphc.rsz(img ,'wh', width, height, scale)
         elif mode == 'r_s':
-            self.gphc.rsz(image_path, out_image_path, 's', width, height, scale)
+            return self.gphc.rsz(img ,'s', width, height, scale)
         elif mode == 's_h':
-            self.gphc.smz(image_path, out_image_path, 'h')
+            return self.gphc.smz(img ,'h')
         elif mode == 's_v':
-            self.gphc.smz(image_path, out_image_path, 'v')
+            return self.gphc.smz(img ,'v')
         elif mode == 't_t':
-            self.gphc.trim(image_path, out_image_path, value, 't')
+            return self.gphc.trim(img ,value, 't')
         elif mode == 't_b':
-            self.gphc.trim(image_path, out_image_path, value, 'b')
+            return self.gphc.trim(img ,value, 'b')
         elif mode == 't_l':
-            self.gphc.trim(image_path, out_image_path, value, 'l')
+            return self.gphc.trim(img ,value, 'l')
         elif mode == 't_r':
-            self.gphc.trim(image_path, out_image_path, value, 'r')
+            return self.gphc.trim(img, value, 'r')
         elif mode not in ['r_w','r_h','r_wh','r_s','s_h','s_v','t_t','t_b','t_l','t_r']:
             return
 
 #Trasform Method
 TRFSYS = TransformSys()
-def transformImg(image_path, out_image_path, main_mode='c', sub_mode='p', color_list=[(255,255,255),(0,0,0)], width=256, height=256, scale=0.5, value=16):
+def transformImg(img, main_mode='c', sub_mode='p', color_list=[(255,255,255),(0,0,0)], width=256, height=256, scale=0.5, value=16):
     """
     Main Mode: -> c => color; -> s => shape/structure
     Sub Mode: 
@@ -388,8 +366,8 @@ def transformImg(image_path, out_image_path, main_mode='c', sub_mode='p', color_
     ==> Warning : You cannot use uppercase letters for mode
     """
     if main_mode == 'c':
-        TRFSYS.transformImg_nms(image_path, out_image_path, sub_mode, color_list)
+        return TRFSYS.transformImg_nms(img ,sub_mode, color_list)
     elif main_mode == 's':
-        TRFSYS.transformImg_ms(image_path, out_image_path, sub_mode, width, height, scale, value)
+        return TRFSYS.transformImg_ms(img ,sub_mode, width, height, scale, value)
     elif main_mode not in 'cs':
         return
