@@ -2,7 +2,9 @@
 
 from tkinter import *
 from tkinter.filedialog import askopenfilename, asksaveasfilename
+from tkinter.messagebox import *
 from PIL import ImageTk, Image as pimg
+from src.img_base import transformImg
 
 BASE_TITLE = 'Image Lab' #donne un titre de base à l'image
 current_title = BASE_TITLE
@@ -76,6 +78,14 @@ file_bar.add_command(label='Save as', command=saveAsFile)
 file_bar.add_command(label='Exit', command=window.destroy)
 
 menu_bar.add_cascade(label='File', menu=file_bar)
+
+edit_bar = Menu(menu_bar, tearoff=0)
+
+color_bar = Menu(edit_bar, tearoff=0)
+
+edit_bar.add_cascade(label='Color', menu=color_bar)
+
+menu_bar.add_cascade(label='Edit', menu=edit_bar)
 
 window.config(menu=menu_bar)
 
