@@ -4,17 +4,17 @@ from tkinter import *
 from tkinter.filedialog import askopenfilename, asksaveasfilename
 from PIL import ImageTk, Image as pimg
 
-BASE_TITLE = 'Image Lab'
+BASE_TITLE = 'Image Lab' #donne un titre de base à l'image
 current_title = BASE_TITLE
 current_path = ''
 
 pilImage = None
 
-def update_path(new_path):
+def update_path(new_path): #mettre a jour le chemin du fichier actuel
     global current_path
     current_path = new_path
 
-def drawImageOnCanvasFromOpen():
+def drawImageOnCanvasFromOpen(): #permet d'afficher l'image
     global pilImage
     pilImage = pimg.open(current_path)
     basewidth = 960
@@ -25,7 +25,7 @@ def drawImageOnCanvasFromOpen():
     imagesprite = canvas.create_image(basewidth // 2 + 1, hsize // 2 + 1, image=image)
     imagesprite.pack()
 
-def openFile():
+def openFile(): #permet d'ouvrir une image
     pathi = askopenfilename(filetypes=[('Image File', '*.jpg')])
     update_path(pathi)
     global current_title
@@ -33,24 +33,24 @@ def openFile():
     window.title(current_title)
     drawImageOnCanvasFromOpen()
     
-def saveAsFile():
+def saveAsFile(): #permet de sauvegarder sous une image 
     pathi = asksaveasfilename(filetypes=[('Image File', '*.jpg')])
     pilImage.save(pathi)
     
-def saveFile():
+def saveFile(): #permet de sauvegarder une image
     if current_path == '':
         saveAsFile()
     else:
         pilImage.save(current_path)
 
-window = Tk()
+window = Tk() #donne un titre de base, une icône et une résolution a la fenêtre
 window.iconphoto(False, PhotoImage(file='res/icon.png'))
 window.title(current_title)
 window.geometry('960x540')
 
 menu_bar = Menu(window)
 
-file_bar = Menu(menu_bar, tearoff=0)
+file_bar = Menu(menu_bar, tearoff=0) #toutes les options  de la barre de menu
 file_bar.add_command(label='Open', command=openFile)
 file_bar.add_command(label='Save', command=saveFile)
 file_bar.add_command(label='Save as', command=saveAsFile)
