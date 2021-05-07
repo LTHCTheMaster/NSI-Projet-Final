@@ -14,6 +14,9 @@ def update_path(new_path):
 def openFile():
     path = askopenfilename(filetypes=[('Image File', '*.jpg')])
     update_path(path)
+    global current_title
+    current_title = BASE_TITLE + ' > ' + current_path
+    window.title(current_title)
 
 window = Tk()
 window.iconphoto(False, PhotoImage(file='res/icon.png'))
