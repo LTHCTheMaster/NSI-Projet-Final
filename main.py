@@ -46,6 +46,14 @@ def drawImageOnCanvasFromOpen(): #permet d'afficher l'image
     imagesprite = canvas.create_image(basewidth // 2 + 1, baseheight // 2 + 1, image=image)
     imagesprite.pack()
 
+def drawImageOnCanvasFromEdit():
+    basewidth = 960
+    baseheight = 530
+    global drawedPilImage
+    image = ImageTk.PhotoImage(drawedPilImage)
+    imagesprite = canvas.create_image(basewidth // 2 + 1, baseheight // 2 + 1, image=image)
+    imagesprite.pack()
+
 def openFile(): #permet d'ouvrir une image
     pathi = askopenfilename(filetypes=[('Image File', '*.jpg')])
     update_path(pathi)
@@ -63,6 +71,20 @@ def saveFile(): #permet de sauvegarder une image
         saveAsFile()
     else:
         pilImage.save(current_path)
+
+def edit_NegColor():
+    global drawedPilImage
+    drawedPilImage = transformImg(drawedPilImage, 'c', 'n')
+    global pilImage
+    pilImage = transformImg(pilImage, 'c', 'n')
+    drawImageOnCanvasFromEdit()
+
+def edit_GreyScale():
+    global drawedPilImage
+    drawedPilImage = transformImg(drawedPilImage, 'c', 'g')
+    global pilImage
+    pilImage = transformImg(pilImage, 'c', 'g')
+    drawImageOnCanvasFromEdit()
 
 window = Tk() #donne un titre de base, une icône et une résolution a la fenêtre
 window.iconphoto(False, PhotoImage(file='res/icon.png'))
@@ -82,6 +104,9 @@ menu_bar.add_cascade(label='File', menu=file_bar)
 edit_bar = Menu(menu_bar, tearoff=0)
 
 color_bar = Menu(edit_bar, tearoff=0)
+
+color_bar.add_command(label='Negative', command=edit_NegColor)
+color_bar.add_command(label='Grey scale', command=edit_GreyScale)
 
 edit_bar.add_cascade(label='Color', menu=color_bar)
 

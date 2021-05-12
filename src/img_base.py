@@ -22,7 +22,7 @@ class GraphCore:
                 colr, colg, colb = img.getpixel((j,i))
                 line.append(color_list[self.closest((colr,colg,colb), color_list)])
             out.append(line)
-        img.close()
+        #
         return out
 
     def closest(self, compared, comparing):
@@ -46,7 +46,7 @@ class GraphCore:
                 g = int((colr+colg+colb)/3)
                 line.append((g, g, g))
             out.append(line)
-        img.close()
+        #
         return out
 
     def nmdcl(self, img):
@@ -63,7 +63,7 @@ class GraphCore:
                 nb = 255 - colb
                 line.append((nr, ng, nb))
             out.append(line)
-        img.close()
+        #
         return out
 
     def cimdcl(self, img, mode='r'):
@@ -97,7 +97,7 @@ class GraphCore:
                 elif not mode in 'rgbklm':
                     line.append((colr, colg, colb))
             out.append(line)
-        img.close()
+        #
         return out
 
     def mmdcl(self, img, mode='rg'):
@@ -126,7 +126,7 @@ class GraphCore:
                 elif mode not in ['rg','rb','gb']:
                     line.append((colr,colg,colb))
             out.append(line)
-        img.close()
+        #
         return out
 
     def rsz(self, img ,mode='w', width=256, height=256, scale=0.5):
@@ -183,7 +183,7 @@ class GraphCore:
                     r, g, b = img.getpixel((i, j))
                     imgout.putpixel((i, y), (r, g, b))
 
-        img.close()
+        #
         return imgout
     
     def trim(self, img ,value=16, mode='t'):
@@ -208,7 +208,7 @@ class GraphCore:
                         colr, colg, colb = img.getpixel((i,j))
                         imgout.putpixel((i,j-value), (colr, colg, colb))
                 
-                img.close()
+                #
         elif mode == 'b':
             if value < hg - 1:
                 imgout = pimg('RGB', (wd, hg - value))
@@ -218,7 +218,7 @@ class GraphCore:
                         colr, colg, colb = img.getpixel((i,j))
                         imgout.putpixel((i,j), (colr, colg, colb))
                 
-                img.close()
+                #
         elif mode == 'l':
             if value < wd - 1:
                 imgout = pimg('RGB', (wd - value, hg))
@@ -228,7 +228,7 @@ class GraphCore:
                         colr, colg, colb = img.getpixel((i,j))
                         imgout.putpixel((i-value,j), (colr, colg, colb))
                 
-                img.close()
+                #
         elif mode == 'r':
             if value < wd - 1:
                 imgout = pimg('RGB', (wd - value, hg))
@@ -238,7 +238,7 @@ class GraphCore:
                         colr, colg, colb = img.getpixel((i,j))
                         imgout.putpixel((i,j), (colr, colg, colb))
                 
-                img.close()
+                #
         if imgout != None:
             return imgout
 
