@@ -3,6 +3,7 @@
 from tkinter import *
 from tkinter.filedialog import askopenfilename, asksaveasfilename
 from tkinter.messagebox import *
+from tkinter.simpledialog import *
 from PIL import ImageTk, Image as pimg
 from src.img_base import transformImg
 
@@ -173,6 +174,85 @@ def edit_pal():
     pilImage = transformImg(pilImage, 'c', 'p', color_list=current_pal)
     drawImageOnCanvasFromEdit()
 
+def edit_resize_w():
+    newwd = askinteger(title='Image Lab > Resize by width > Wanted Width', prompt='tell me your wanted width')
+    global drawedPilImage
+    drawedPilImage = transformImg(drawedPilImage, 's', 'r_w', width=newwd)
+    global pilImage
+    pilImage = transformImg(pilImage, 's', 'r_w', width=newwd)
+    drawImageOnCanvasFromEdit()
+
+def edit_resize_h():
+    newhg = askinteger(title='Image Lab > Resize by height > Wanted Height', prompt='tell me your wanted height')
+    global drawedPilImage
+    drawedPilImage = transformImg(drawedPilImage, 's', 'r_h', height=newhg)
+    global pilImage
+    pilImage = transformImg(pilImage, 's', 'r_h', height=newhg)
+    drawImageOnCanvasFromEdit()
+
+def edit_resize_wh():
+    newwd = askinteger(title='Image Lab > Resize by width and height > Wanted Width', prompt='tell me your wanted width')
+    newhg = askinteger(title='Image Lab > Resize by width and height > Wanted Height', prompt='tell me your wanted height')
+    global drawedPilImage
+    drawedPilImage = transformImg(drawedPilImage, 's', 'r_wh', width=newwd, height=newhg)
+    global pilImage
+    pilImage = transformImg(pilImage, 's', 'r_wh', width=newwd, height=newhg)
+    drawImageOnCanvasFromEdit()
+
+def edit_resize_s():
+    scaler = askfloat(title='Image Lab > Resize by scale > Wanted scale', prompt='tell me your wanted scale')
+    global drawedPilImage
+    drawedPilImage = transformImg(drawedPilImage, 's', 'r_s', scale=scaler)
+    global pilImage
+    pilImage = transformImg(pilImage, 's', 'r_s', scale=scaler)
+    drawImageOnCanvasFromEdit()
+
+def edit_sym_h():
+    global drawedPilImage
+    drawedPilImage = transformImg(drawedPilImage, 's', 's_h')
+    global pilImage
+    pilImage = transformImg(pilImage, 's', 's_h')
+    drawImageOnCanvasFromEdit()
+
+def edit_sym_v():
+    global drawedPilImage
+    drawedPilImage = transformImg(drawedPilImage, 's', 's_v')
+    global pilImage
+    pilImage = transformImg(pilImage, 's', 's_v')
+    drawImageOnCanvasFromEdit()
+
+def edit_trim_t():
+    valuer = askinteger(title='Image Lab > Trimming > Value', prompt='tell me your trimming value')
+    global drawedPilImage
+    drawedPilImage = transformImg(drawedPilImage, 's', 't_t', value=valuer)
+    global pilImage
+    pilImage = transformImg(pilImage, 's', 't_t', value=valuer)
+    drawImageOnCanvasFromEdit()
+
+def edit_trim_b():
+    valuer = askinteger(title='Image Lab > Trimming > Value', prompt='tell me your trimming value')
+    global drawedPilImage
+    drawedPilImage = transformImg(drawedPilImage, 's', 't_b', value=valuer)
+    global pilImage
+    pilImage = transformImg(pilImage, 's', 't_b', value=valuer)
+    drawImageOnCanvasFromEdit()
+
+def edit_trim_l():
+    valuer = askinteger(title='Image Lab > Trimming > Value', prompt='tell me your trimming value')
+    global drawedPilImage
+    drawedPilImage = transformImg(drawedPilImage, 's', 't_l', value=valuer)
+    global pilImage
+    pilImage = transformImg(pilImage, 's', 't_l', value=valuer)
+    drawImageOnCanvasFromEdit()
+
+def edit_trim_r():
+    valuer = askinteger(title='Image Lab > Trimming > Value', prompt='tell me your trimming value')
+    global drawedPilImage
+    drawedPilImage = transformImg(drawedPilImage, 's', 't_r', value=valuer)
+    global pilImage
+    pilImage = transformImg(pilImage, 's', 't_r', value=valuer)
+    drawImageOnCanvasFromEdit()
+
 def closeWindow():
     try:
         window.destroy()
@@ -228,6 +308,35 @@ pal_bar.add_command(label='Run Editing', command=edit_pal)
 color_bar.add_cascade(label='Editing by Color Tables', menu=pal_bar)
 
 edit_bar.add_cascade(label='Color', menu=color_bar)
+
+shape_bar = Menu(edit_bar, tearoff=0)
+
+rsz_bar = Menu(shape_bar, tearoff=0)
+
+rsz_bar.add_command(label='by new width', command=edit_resize_w)
+rsz_bar.add_command(label='by new height', command=edit_resize_h)
+rsz_bar.add_command(label='by new width and height', command=edit_resize_wh)
+rsz_bar.add_command(label='by new scale', command=edit_resize_s)
+
+shape_bar.add_cascade(label='Resize', menu=rsz_bar)
+
+sym_bar = Menu(shape_bar, tearoff=0)
+
+sym_bar.add_command(label='Horizontal symetry', command=edit_sym_h)
+sym_bar.add_command(label='Vertical symetry', command=edit_sym_v)
+
+shape_bar.add_cascade(label='Symetric', menu=sym_bar)
+
+trim_bar = Menu(shape_bar, tearoff=0)
+
+trim_bar.add_command(label='on top', command=edit_trim_t)
+trim_bar.add_command(label='on bottom', command=edit_trim_b)
+trim_bar.add_command(label='on left', command=edit_trim_l)
+trim_bar.add_command(label='on right', command=edit_trim_r)
+
+shape_bar.add_cascade(label='Trimming', menu=trim_bar)
+
+edit_bar.add_cascade(label='Shape', menu=shape_bar)
 
 menu_bar.add_cascade(label='Edit', menu=edit_bar)
 

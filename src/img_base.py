@@ -201,44 +201,44 @@ class GraphCore:
 
         if mode == 't':
             if value < hg - 1:
-                imgout = pimg('RGB', (wd, hg - value))
+                imgout = pimg.new('RGB', (wd, hg - value))
 
                 for i in range(wd):
                     for j in range(value, hg):
                         colr, colg, colb = img.getpixel((i,j))
                         imgout.putpixel((i,j-value), (colr, colg, colb))
                 
-                #
+                
         elif mode == 'b':
             if value < hg - 1:
-                imgout = pimg('RGB', (wd, hg - value))
+                imgout = pimg.new('RGB', (wd, hg - value))
 
                 for i in range(wd):
                     for j in range(hg - value):
                         colr, colg, colb = img.getpixel((i,j))
                         imgout.putpixel((i,j), (colr, colg, colb))
                 
-                #
+                
         elif mode == 'l':
             if value < wd - 1:
-                imgout = pimg('RGB', (wd - value, hg))
+                imgout = pimg.new('RGB', (wd - value, hg))
 
                 for i in range(value, wd):
                     for j in range(hg):
                         colr, colg, colb = img.getpixel((i,j))
                         imgout.putpixel((i-value,j), (colr, colg, colb))
                 
-                #
+                
         elif mode == 'r':
             if value < wd - 1:
-                imgout = pimg('RGB', (wd - value, hg))
+                imgout = pimg.new('RGB', (wd - value, hg))
 
                 for i in range(wd - value):
                     for j in range(hg):
                         colr, colg, colb = img.getpixel((i,j))
                         imgout.putpixel((i,j), (colr, colg, colb))
                 
-                #
+                
         if imgout != None:
             return imgout
 
