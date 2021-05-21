@@ -13,6 +13,8 @@ current_path = ''
 pilImage = None
 drawedPilImage = None
 
+current_pal = [(255,255,255),(0,0,0)]
+
 def update_path(new_path): #mettre a jour le chemin du fichier actuel
     global current_path
     current_path = new_path
@@ -86,6 +88,97 @@ def edit_GreyScale():
     pilImage = transformImg(pilImage, 'c', 'g')
     drawImageOnCanvasFromEdit()
 
+def edit_ci_r():
+    global drawedPilImage
+    drawedPilImage = transformImg(drawedPilImage, 'c', 'ci_r')
+    global pilImage
+    pilImage = transformImg(pilImage, 'c', 'ci_r')
+    drawImageOnCanvasFromEdit()
+
+def edit_ci_g():
+    global drawedPilImage
+    drawedPilImage = transformImg(drawedPilImage, 'c', 'ci_g')
+    global pilImage
+    pilImage = transformImg(pilImage, 'c', 'ci_g')
+    drawImageOnCanvasFromEdit()
+
+def edit_ci_b():
+    global drawedPilImage
+    drawedPilImage = transformImg(drawedPilImage, 'c', 'ci_b')
+    global pilImage
+    pilImage = transformImg(pilImage, 'c', 'ci_b')
+    drawImageOnCanvasFromEdit()
+
+def edit_kp_r():
+    global drawedPilImage
+    drawedPilImage = transformImg(drawedPilImage, 'c', 'k_r')
+    global pilImage
+    pilImage = transformImg(pilImage, 'c', 'k_r')
+    drawImageOnCanvasFromEdit()
+
+def edit_kp_g():
+    global drawedPilImage
+    drawedPilImage = transformImg(drawedPilImage, 'c', 'k_g')
+    global pilImage
+    pilImage = transformImg(pilImage, 'c', 'k_g')
+    drawImageOnCanvasFromEdit()
+
+def edit_kp_b():
+    global drawedPilImage
+    drawedPilImage = transformImg(drawedPilImage, 'c', 'k_b')
+    global pilImage
+    pilImage = transformImg(pilImage, 'c', 'k_b')
+    drawImageOnCanvasFromEdit()
+
+def edit_med_rg():
+    global drawedPilImage
+    drawedPilImage = transformImg(drawedPilImage, 'c', 'm_rg')
+    global pilImage
+    pilImage = transformImg(pilImage, 'c', 'm_rg')
+    drawImageOnCanvasFromEdit()
+
+def edit_med_rb():
+    global drawedPilImage
+    drawedPilImage = transformImg(drawedPilImage, 'c', 'm_rb')
+    global pilImage
+    pilImage = transformImg(pilImage, 'c', 'm_rb')
+    drawImageOnCanvasFromEdit()
+
+def edit_med_gb():
+    global drawedPilImage
+    drawedPilImage = transformImg(drawedPilImage, 'c', 'm_gb')
+    global pilImage
+    pilImage = transformImg(pilImage, 'c', 'm_gb')
+    drawImageOnCanvasFromEdit()
+
+def getPalFile():
+    pathi = askopenfilename(filetypes=[('Color Tables File', '*.pctby')])
+    try:
+        with open(pathi, 'r+') as pfile:
+            pfile.write('')
+            lines = pfile.readlines()
+            pfile.close()
+            global current_pal
+            current_pal = []
+            for i in lines:
+                line = i.split(';')
+                current_pal.append((int(line[0]),int(line[1]),int(line[2])))
+    except:
+        pass
+
+def edit_pal():
+    global drawedPilImage
+    drawedPilImage = transformImg(drawedPilImage, 'c', 'p', color_list=current_pal)
+    global pilImage
+    pilImage = transformImg(pilImage, 'c', 'p', color_list=current_pal)
+    drawImageOnCanvasFromEdit()
+
+def closeWindow():
+    try:
+        window.destroy()
+    except:
+        exit()
+
 window = Tk() #donne un titre de base, une icône et une résolution a la fenêtre
 window.iconphoto(False, PhotoImage(file='res/icon.png'))
 window.title(current_title)
@@ -97,7 +190,7 @@ file_bar = Menu(menu_bar, tearoff=0) #toutes les options  de la barre de menu
 file_bar.add_command(label='Open', command=openFile)
 file_bar.add_command(label='Save', command=saveFile)
 file_bar.add_command(label='Save as', command=saveAsFile)
-file_bar.add_command(label='Exit', command=window.destroy)
+file_bar.add_command(label='Exit', command=closeWindow)
 
 menu_bar.add_cascade(label='File', menu=file_bar)
 
@@ -107,6 +200,32 @@ color_bar = Menu(edit_bar, tearoff=0)
 
 color_bar.add_command(label='Negative', command=edit_NegColor)
 color_bar.add_command(label='Grey scale', command=edit_GreyScale)
+
+ign_kep_bar = Menu(color_bar, tearoff=0)
+
+ign_kep_bar.add_command(label='Ignore Red', command=edit_ci_r)
+ign_kep_bar.add_command(label='Ignore Green', command=edit_ci_g)
+ign_kep_bar.add_command(label='Ignore Blue', command=edit_ci_b)
+ign_kep_bar.add_command(label='Keep Red', command=edit_kp_r)
+ign_kep_bar.add_command(label='Keep Green', command=edit_kp_g)
+ign_kep_bar.add_command(label='Keep Blue', command=edit_kp_b)
+
+color_bar.add_cascade(label='Ignore Or Keep', menu=ign_kep_bar)
+
+med_bar = Menu(color_bar, tearoff=0)
+
+med_bar.add_command(label='Red & Green Median', command=edit_med_rg)
+med_bar.add_command(label='Red & Blue Median', command=edit_med_rb)
+med_bar.add_command(label='Green & Blue Median', command=edit_med_gb)
+
+color_bar.add_cascade(label='Two Colors Median', menu=med_bar)
+
+pal_bar = Menu(color_bar, tearoff=0)
+
+pal_bar.add_command(label='Open Color Tables File', command=getPalFile)
+pal_bar.add_command(label='Run Editing', command=edit_pal)
+
+color_bar.add_cascade(label='Editing by Color Tables', menu=pal_bar)
 
 edit_bar.add_cascade(label='Color', menu=color_bar)
 
