@@ -6,9 +6,8 @@
 </div>
 
 # L'Interface
-
 <img src="img_md/interface.png">
 
 # Menu
-
-<img src="img_md/interface.png">
+## Edit Menu
+<img src="img_md/edit_menu.png">
