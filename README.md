@@ -66,3 +66,12 @@ Keep Red => met les canaux vert et bleu à 0 donc les désactive, il ne reste pl
 Keep Green => met les canaux rouge et bleu à 0 donc les désactive, il ne reste plus que le canal vert
 
 Keep Blue => met les canaux rouge et vert à 0 donc les désactive, il ne reste plus que le canal bleu
+
+## Two Colors Median
+<img src="img_md/bicolo_men.png">
+
+Red & Green Median => fait la moyenne du canal rouge et du canal vert du pixel et met cette moyenne dans le canal rouge et dans le canal vert du pixel
+
+Red & Blue Median => fait la moyenne du canal rouge et du canal bleu du pixel et met cette moyenne dans le canal rouge et dans le canal bleu du pixel
+
+Green & Blue Median => fait la moyenne du canal vert et du canal bleu du pixel et met cette moyenne dans le canal vert et dans le canal bleu du pixel
