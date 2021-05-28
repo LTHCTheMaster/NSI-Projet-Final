@@ -21,5 +21,15 @@ Seul défaut, le logiciel ne supporte que des .jpg pour la raison simple du nive
 <img src="img_md/interface.png">
 
 # Menu
-## Edit Menu
-<img src="img_md/edit_menu.png">
+## File Menu
+<img src="img_md/file_menu.png">
+
+Open => ouvrir une image
+
+Save => sauvegarder l'image actuellement ouverte
+
+Save as => "sauvegarder sous" l'image actuellement ouverte
+
+Exit => quitter le programme/logiciel
+
+
