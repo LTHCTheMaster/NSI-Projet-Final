@@ -75,3 +75,32 @@ Red & Green Median => fait la moyenne du canal rouge et du canal vert du pixel e
 Red & Blue Median => fait la moyenne du canal rouge et du canal bleu du pixel et met cette moyenne dans le canal rouge et dans le canal bleu du pixel
 
 Green & Blue Median => fait la moyenne du canal vert et du canal bleu du pixel et met cette moyenne dans le canal vert et dans le canal bleu du pixel
+
+## Editing by Color Tables
+<img src="img_md/pal_men.png">
+
+Open Color Tables File => permet de charger une palette de couleur venant d'un fichier en .pctby
+
+Exemple de fichier:
+```
+255;255;255
+0;0;0
+255;0;0
+0;255;0
+0;0;255
+255;255;0
+255;0;255
+0;255;255
+128;128;128
+255;128;0
+255;0;128
+255;128;128
+128;255;0
+0;255;128
+128;255;128
+128;0;255
+0;128;255
+128;128;255
+```
+
+Run Editing => lance l'édition par palette de couleurs
