@@ -126,7 +126,7 @@ by new width and height => demande une longueur et une hauteur et retaille l'ima
 by new scale => demande un ratio et permet de retailler l'image proportionellement avec le ratio
 
 ## Symetric
-<img src="img_mg/sym_men.png">
+<img src="img_md/sym_men.png">
 
 Horizontal symetry => fait la symétrie horizontale de l'image
 
