@@ -131,3 +131,14 @@ by new scale => demande un ratio et permet de retailler l'image proportionelleme
 Horizontal symetry => fait la symétrie horizontale de l'image
 
 Vertical symetry => fait la symétrie verticale de l'image
+
+## Trimming
+<img src="img_md/trim_men.png">
+
+on top => demande une valeur et supprime la valeur ligne de pixel en haut de l'image
+
+on bottom => demande une valeur et supprime la valeur ligne de pixel en bas de l'image
+
+on left => demande une valeur et supprime la valeur colonne de pixel à gauche de l'image
+
+on right => demande une valeur et supprime la valeur colonne de pixel à droite de l'image
