@@ -40,7 +40,7 @@ Color => Menu d'édition de couleur
 Shape => Menu d'édition de forme
 
 # Le menu d'édition de couleur
-<img src="color_menu.png">
+<img src="img_md/color_menu.png">
 
 Negative => fait le négatif de l'image actuellement ouverte
 
