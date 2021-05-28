@@ -51,3 +51,18 @@ Ignore Or Keep => Menu d'édition monocanal
 Two Colors Median => Menu d'édition bicanal
 
 Editing by Color Tables => Menu d'édition par palette de couleurs
+
+## Ignore Or Keep
+<img src="img_md/ignkep_colo_men.png">
+
+Ignore Red => met le canal rouge à 0 donc le désactive
+
+Ignore Green => met le canal vert à 0 donc le désactive
+
+Ignore Blue => met le canal bleu à 0 donc le désactive
+
+Keep Red => met les canaux vert et bleu à 0 donc les désactive, il ne reste plus que le canal rouge
+
+Keep Green => met les canaux rouge et bleu à 0 donc les désactive, il ne reste plus que le canal vert
+
+Keep Blue => met les canaux rouge et vert à 0 donc les désactive, il ne reste plus que le canal bleu
