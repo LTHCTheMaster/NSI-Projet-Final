@@ -104,3 +104,23 @@ Exemple de fichier:
 ```
 
 Run Editing => lance l'édition par palette de couleurs
+
+# Le menu d'édition de forme
+<img src="img_md/shape_menu.png">
+
+Resize => changement de taille
+
+Symetric => menu pour faire de la symétrie
+
+Trimming => menu pour faire du rognage
+
+## Resize
+<img src="img_md/rsz_men.png">
+
+by new width => demande une longueur et permet de retailler l'image proportionellement avec la nouvelle longueur
+
+by new height => demande une hauteur et permet de retailler l'image proportionellement avec la nouvelle hauteur
+
+by new width and height => demande une longueur et une hauteur et retaille l'image
+
+by new scale => demande un ratio et permet de retailler l'image proportionellement avec le ratio
