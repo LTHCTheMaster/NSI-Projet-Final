@@ -38,3 +38,16 @@ Exit => quitter le programme/logiciel
 Color => Menu d'édition de couleur
 
 Shape => Menu d'édition de forme
+
+# Le menu d'édition de couleur
+<img src="color_menu.png">
+
+Negative => fait le négatif de l'image actuellement ouverte
+
+Grey scale => fait le niveau de gris de l'image actuellement ouverte
+
+Ignore Or Keep => Menu d'édition monocanal
+
+Two Colors Median => Menu d'édition bicanal
+
+Editing by Color Tables => Menu d'édition par palette de couleurs
