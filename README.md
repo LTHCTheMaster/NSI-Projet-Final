@@ -32,4 +32,9 @@ Save as => "sauvegarder sous" l'image actuellement ouverte
 
 Exit => quitter le programme/logiciel
 
+## Edit Menu
+<img src="img_md/edit_menu_overview.png">
 
+Color => Menu d'édition de couleur
+
+Shape => Menu d'édition de forme
