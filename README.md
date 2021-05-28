@@ -124,3 +124,10 @@ by new height => demande une hauteur et permet de retailler l'image proportionel
 by new width and height => demande une longueur et une hauteur et retaille l'image
 
 by new scale => demande un ratio et permet de retailler l'image proportionellement avec le ratio
+
+## Symetric
+<img src="img_mg/sym_men.png">
+
+Horizontal symetry => fait la symétrie horizontale de l'image
+
+Vertical symetry => fait la symétrie verticale de l'image
